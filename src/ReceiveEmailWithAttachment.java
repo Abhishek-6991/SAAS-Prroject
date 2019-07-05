@@ -153,7 +153,7 @@ public class ReceiveEmailWithAttachment
 	  Invoice invoice= new Invoice();
 	 
 	  //call receiveEmail
-	  String fileName= receiveEmail(pop3Host, mailStoreType, "abhishek.ganesh196@gmail.com", "abisaiapuaks1996");
+	  String fileName= receiveEmail(pop3Host, mailStoreType, "xxxxxxxxxxxx@gmail.com", "xxxxxxxx");
 	  //ParsePDF parse= new ParsePDF();
 	  if(fileName != null)
 	  {

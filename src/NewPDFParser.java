@@ -31,7 +31,7 @@ public class NewPDFParser
 		if(pages.contains("Invoice No") && pages.contains("Net Order Total"))
 		{
 			String[] lines = pages.split("\r\n|\r|\n");
-			System.out.println("------------------INVOICE "+invoiceCount+"----------------------");
+			//System.out.println("------------------INVOICE "+invoiceCount+"----------------------");
 			invoiceCount++;
 			for(int i= 0; i < lines.length;i++)
 			{
@@ -78,11 +78,12 @@ public class NewPDFParser
 	    //System.out.println("\ninvoice num: "+invoiceNo+"\ninvoice date: "
 	    					//+invoiceDate+"\ncustomer po: "+customerPo
 	    					//+"\naddress: "+address+"\namount: "+amount);
-	    System.out.println("Calling DB store");
+	    //System.out.println("Calling DB store");
 	    populateDB.storeValuesInDatabase(dbConnection, invoiceNo,invoiceDate,customerPo,address,amount);
 	    //Thread.sleep(3000);
 	    }
 		pageCounter++;
 	  }
+	  System.out.println("PDFs have been parsed and the required information has been stored in the database");
 	}
 }

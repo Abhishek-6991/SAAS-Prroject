@@ -14,6 +14,8 @@ public class Invoice
 	  Statement smt1=dbConnection.createStatement();
 	  Statement smt2=dbConnection.createStatement();
 	  Statement smt3=dbConnection.createStatement();
+	  Statement smt4=dbConnection.createStatement();
+
 	  //Statement smt3=dbConnection.createStatement();
 	  String nullCheckQuery= "select * from invoice_details";
 	  String invalidInvoiceCheckQuery= "select invoice_id from invoice_details";
@@ -49,11 +51,17 @@ public class Invoice
 			invoiceGroup+= rs3.getString(1);
 			}while(rs3.next());
 	    }
-	    if(invoiceGroup.contains(invoiceNo))
+	    
+	    String checkApproval= "select status from invoice_details where invoice_id= '"+invoiceNo+"'";
+		String approvalStatus= "";
+		ResultSet rs4= smt2.executeQuery(checkApproval);
+		if(rs4.next())
+		  approvalStatus= rs4.getString(1);
+		
+	    if(invoiceGroup.contains(invoiceNo) && approvalStatus.equals("unapproved"))
 	    {
 	      try {			
 			String query = "update invoice_details set status = ? where invoice_id = ?";
-			//String checkApproval= "select status from invoice_details where invoice_id= '"+invoiceNo+"'";
 			PreparedStatement preparedStmt = dbConnection.prepareStatement(query);
 			preparedStmt.setString(1, "Approved");
 			preparedStmt.setString(2, invoiceNo);
@@ -72,7 +80,7 @@ public class Invoice
 	    }
 	    else
 	    {
-	    	System.out.println("No such Invoice number");
+	    	System.out.println("There are no unapproved invoices for the given Invoice number");
 	    	return;
 	    }
   }
